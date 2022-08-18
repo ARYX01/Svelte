@@ -1,8 +1,9 @@
 <script>
   import {feedbackStore} from '../stores'
 
-  $: count = $feedbackStore.length
-  $: average = $feedbackStore.reduce((a, {rating}) => a + rating, 0) / $feedbackStore.length
+	$: count = $feedbackStore.length
+	$: average = $feedbackStore.length==0 ? "no reviews"
+		: Math.round($feedbackStore.reduce((a, {rating}) => a + rating, 0) / $feedbackStore.length * 100) /100
 </script>
 
 <div class="feedback-stats">
