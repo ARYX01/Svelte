@@ -5,53 +5,79 @@ const CACHE_NAME = 'static-cache-v1';
 
 // Add list of files to cache here.
 const FILES_TO_CACHE = [
-  '/index.html',
+	'/',
+	'/global.css',
+	'/manifest.json',
+	'/assets/index.*.js',
+	'/assets/index.*.css',
+	'/icons/*.png',
 ];
 
-self.addEventListener('install', (evt) => {
-  console.log('[ServiceWorker] Install');
+// INSTALL ServiceWorker
+self.addEventListener('install', event => {
+	console.log('[ServiceWorker] Install');
 
-  evt.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        console.log('[ServiceWorker] Pre-caching offline page');
-        return cache.addAll(FILES_TO_CACHE);
-      })
-  );
+	event.waitUntil(
+		caches.open(CACHE_NAME)
+		.then(cache => {
+			console.log('[ServiceWorker] Pre-caching offline page');
+			return cache.addAll(FILES_TO_CACHE);
+		})
+	);
 
-  self.skipWaiting();
+	self.skipWaiting();
 });
 
-self.addEventListener('activate', (evt) => {
-  console.log('[ServiceWorker] Activate');
-  // Remove previous cached data from disk.
-  evt.waitUntil(
-      caches.keys().then((keyList) => {
-        return Promise.all(keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache', key);
-            return caches.delete(key);
-          }
-        }));
-      })
-  );
+// ACTIVATE ServiceWorker
+self.addEventListener('activate', event => {
+	console.log('[ServiceWorker] Activate');
+	// Remove previous cached data from disk.
+	event.waitUntil(
+		caches.keys()
+		.then((keyList) => {
+			return Promise.all(keyList.map(key => {
+				if (key !== CACHE_NAME) {
+					console.log('[ServiceWorker] Removing old cache', key);
+					return caches.delete(key);
+				}
+			}));
+		})
+	);
 
-  self.clients.claim();
+	self.clients.claim();
 });
 
-self.addEventListener('fetch', (evt) => {
-  console.log('[ServiceWorker] Fetch', evt.request.url);
-  // Add fetch event handler here.
-  if (evt.request.mode !== 'navigate') {
-    // Not a page navigation, bail.
-    return;
-  }
-  evt.respondWith(
-      fetch(evt.request)
-          .catch(() => {
-            return caches.open(CACHE_NAME)
-                .then((cache) => {
-                  return cache.match('index.html');
-                });
-          })
-  );
+// ServiceWorker LISTEN FOR REQUESTs
+self.addEventListener('fetch', event => {
+	console.log('[ServiceWorker] Fetch', event.request.url);
+	// Add fetch event handler here.
+	
+	// Not a page navigation, bail.
+	if (event.request.mode !== 'navigate') 
+		return;
+	event.respondWith(
+		// CACHE FIRST
+		/*caches.match(event.request)
+		.then(cachedResponse => {
+			// It can update the cache to serve updated content on the next request
+			return cachedResponse || fetch(event.request);
+		}*/
+		// NETWORK FIRST
+		/*fetch(event.request)
+		.catch(() => {
+			return cache.match(event.request);
+		})*/
+		// Stale While Revalidate
+		caches.match(event.request).then(cachedResponse => {
+			const networkFetch = fetch(event.request).then(response => {
+				// update the cache with a clone of the network response
+				caches.open(CACHE_NAME)
+				.then(cache => {
+					cache.put(event.request, response.clone());
+				});
+			});
+			// prioritize cached response over network
+			return cachedResponse || networkFetch;
+		}
+	);
 });
