@@ -8,9 +8,11 @@ const FILES_TO_CACHE = [
 	'/',
 	'/global.css',
 	'/manifest.json',
-	'/assets/index.*.js',
-	'/assets/index.*.css',
-	'/icons/*.png',
+	// Dynamic generated assets need to be set each time after rebuild
+	'/assets/index.*.js', //not working
+	'/assets/index.*.css',//not working
+	// Import icons and images one by one
+	'/icons/*.png',//not working
 ];
 
 // INSTALL ServiceWorker
