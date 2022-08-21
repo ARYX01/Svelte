@@ -22,7 +22,8 @@ const pwaOptions = {
 
 if (process.env.SW_DEV === 'true') {
 	console.log("Setting SW_DEV PWA options...")
-	// pwaOptions.srcDir = 'src'
+	pwaOptions.srcDir = 'src'
+	pwaOptions.filename = 'custom-sw.js'
 	// pwaOptions.registerType = 'autoUpdate'
 	// pwaOptions.strategies = 'injectManifest'
 	pwaOptions.devOptions.enabled = true
@@ -42,5 +43,5 @@ export default defineConfig({
       $components: path.resolve('./src/components')
     }
   },
-  css:{ devSourcemap: true }
+  // css:{ devSourcemap: true }
 })
