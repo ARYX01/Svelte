@@ -9,7 +9,7 @@ const pwaOptions = {
 	// base: '/', //Vite default = '/'
 	registerType: 'autoUpdate',
 	manifest,
-	includeAssets: ['favicon.png'],
+	includeAssets: ['favicon-*','browserconfig.xml','icons/safari-pinned-tab.svg'],
 	injectRegister: 'script', //default = auto
 	strategies: 'injectManifest',
 	devOptions: {
@@ -23,6 +23,7 @@ const pwaOptions = {
 if (process.env.SW_DEV === 'true') {
 	console.log("Setting SW_DEV PWA options...")
 	// pwaOptions.srcDir = 'src'
+	// pwaOptions.filename = 'dev-sw.js'
 	// pwaOptions.registerType = 'autoUpdate'
 	// pwaOptions.strategies = 'injectManifest'
 	pwaOptions.devOptions.enabled = true
@@ -42,5 +43,5 @@ export default defineConfig({
       $components: path.resolve('./src/components')
     }
   },
-  css:{ devSourcemap: true }
+  // css:{ devSourcemap: true }
 })

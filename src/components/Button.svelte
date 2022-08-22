@@ -11,21 +11,20 @@
 
 <style>
   button {
-    color: #fff;
+    color: white;
     border: 0;
     border-radius: 8px;
-    color: #fff;
     width: 100px;
     height: 40px;
     cursor: pointer;
   }
 
   .primary {
-    background-color: #202142;
+    background-color: var(--primary);
   }
 
   .secondary {
-    background: #ff6a95;
+    background: var(--secondary);
   }
 
   button:hover {

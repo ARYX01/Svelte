@@ -8,8 +8,9 @@
 
 <div class="feedback-stats">
   <h4>{count} Reviews</h4>
-  <h4>Ratings Average: {average}</h4>
+  <h4 style="text-align:right">Ratings Average: {average}</h4>
 </div>
+<hr>
 
 <style>
   .feedback-stats {
