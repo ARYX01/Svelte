@@ -2,6 +2,8 @@
   import {feedbackStore} from '../stores'
   import Card from './Card.svelte'
   export let item
+  
+  item.text = item.text.replaceAll("\n", "<br>")
 
   const handleDelete = (itemId) => {
     feedbackStore.update((currentFeedback) => {
@@ -16,7 +18,7 @@
   </div>
   <button class="close" on:click={() => handleDelete(item.id)}>X</button>
   <p class="text-display">
-    {item.text}
+    {@html item.text}
   </p>
 </Card>
 
@@ -27,8 +29,8 @@
     left: -10px;
     width: 50px;
     height: 50px;
-    background: #ff6a95;
-    color: #fff;
+    background: var(--primary);
+    color: white;
     border: 1px #eee solid;
     border-radius: 50%;
     padding: 10px;
@@ -43,5 +45,9 @@
     cursor: pointer;
     background: none;
     border: none;
+  }
+  
+  .text-display {
+	/*font-family: 'Poppins', sans-serif;*/
   }
 </style>
