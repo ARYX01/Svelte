@@ -1,25 +1,21 @@
 <script>
   import { useRegisterSW } from 'virtual:pwa-register/svelte'
 
-  // replaced dynamically
+  // replaced dynamically: pnpm build
   const buildDate = new Date().toISOString()
   // replaced dyanmicaly
   const reloadSW = true
 
-  const {
-      offlineReady,
-      needRefresh,
-      updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered(r) {
+  const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
+    onRegistered(sw) {
         if (reloadSW) {
-            r && setInterval(() => {
+            sw && setInterval(() => {
                 console.log('Checking for sw update')
-                r.update()
-            }, 10000 /* 10s for testing purposes */)
+                sw.update()
+            }, 10000 /* 10s interval for testing purposes */)
         }
         else {
-            console.log(`SW Registered: ${r}`)
+            console.log(`SW Registered: ${sw}`)
         }
     },
     onRegisterError(error) {
@@ -56,9 +52,9 @@
         Reload
       </button>
     {/if}
-    <button on:click={close}>
+    <!-- button on:click={close}>
       Close
-    </button>
+    </button -->
   </div>
 {/if}
 
@@ -78,17 +74,24 @@
     border-radius: 4px;
     z-index: 2;
     text-align: left;
-    box-shadow: 3px 4px 5px 0 #8885;
+    box-shadow: 2px 3px 8px 0 var(--bg);
     background-color: white;
   }
   .pwa-toast .message {
+    color: black;
     margin-bottom: 8px;
   }
   .pwa-toast button {
-    border: 1px solid #8885;
-    outline: none;
-    margin-right: 5px;
-    border-radius: 2px;
-    padding: 3px 10px;
+    color: white;
+    background: var(--secondary);
+    border: 0;
+    border-radius: 8px;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+  }
+  .pwa-toast button:hover {
+    transform: scale(0.98);
+    opacity: 0.9;
   }
 </style>

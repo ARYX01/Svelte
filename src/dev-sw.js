@@ -2,16 +2,16 @@ import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from
 import { NavigationRoute, registerRoute } from 'workbox-routing'
 import { clientsClaim } from 'workbox-core'
 
-self.addEventListener('message', event => {
+/* self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
 	console.log('[ServiceWorker] Skip waiting')
 	self.skipWaiting()
   }
-})
+}) */
 
 // self.__WB_MANIFEST is default injection point
 const FILES_TO_CACHE = self.__WB_MANIFEST
-console.log("FILES TO CACHE:", FILES_TO_CACHE)
+console.log("FILES TO CACHE: ", FILES_TO_CACHE)
 precacheAndRoute(FILES_TO_CACHE)
 
 // clean old assets
@@ -27,8 +27,8 @@ registerRoute(new NavigationRoute(
   { denylist },
 ))
 
-// self.skipWaiting()
-// clientsClaim()
+self.skipWaiting()
+clientsClaim()
 
 // Establish a cache name
 const CACHE_NAME = 'static-cache-v1';

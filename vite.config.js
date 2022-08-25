@@ -7,10 +7,10 @@ import manifest from './manifest.json'
 const pwaOptions = {
 	mode: 'development',
 	// base: '/', //Vite default = '/'
-	registerType: 'autoUpdate',
+	// registerType: 'autoUpdate', //default = prompt
 	manifest,
 	includeAssets: ['favicon-*','browserconfig.xml','icons/safari-pinned-tab.svg'],
-	injectRegister: 'script', //default = auto
+	// injectRegister: 'script', //default = auto
 	strategies: 'injectManifest',
 	devOptions: {
 		enabled: false,
@@ -28,7 +28,7 @@ if (process.env.SW_DEV === 'true') {
 	// pwaOptions.strategies = 'injectManifest'
 	pwaOptions.devOptions.enabled = true
 	/* enable to tmp fix for registerSW.js 404 */
-	// pwaOptions.injectRegister = 'inline'
+	pwaOptions.injectRegister = 'inline'
 }
 
 console.log(pwaOptions)

@@ -11,10 +11,11 @@
 
 <style>
   button {
+    font-size: 14px;
     color: white;
     border: 0;
     border-radius: 8px;
-    width: 100px;
+    width: 120px;
     height: 40px;
     cursor: pointer;
   }

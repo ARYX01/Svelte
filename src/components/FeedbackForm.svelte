@@ -16,18 +16,18 @@
   let input
 
   $: if(innerWidth && input || text) {
-	//console.log("init input OR on window resize", {scrollHeight:input.scrollHeight+"px"})
-	setTextareaHeight()
+	setTextareaHeight('init input OR on window resize')
   }
 
-  function setTextareaHeight() {
+  function setTextareaHeight(by="other") {
+	//console.log("setTextareaHeight by->"+by, {scrollHeight:input.scrollHeight+"px"})
 	input.style.height = "auto"
 	input.style.height = input.scrollHeight+"px"
   }
 
   onMount(() => {
 	input = document.getElementById('input')
-	setTimeout(setTextareaHeight,100)
+	setTimeout(setTextareaHeight,200)
   })
 
   const handleSelect = e => rating = e.detail
@@ -129,7 +129,7 @@
 		flex-direction: column;
 	}
 	textarea {
-		margin-bottom: 8px;
+		margin-bottom: 10px;
 	}
   }
 </style>
