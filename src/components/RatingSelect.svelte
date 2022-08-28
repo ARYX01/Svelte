@@ -23,20 +23,20 @@
 </script>
 
 {#if screenWidth>450}
-<ul class="rating">
+	<ul class="rating">
 
-  {#each Array(10) as _, index (index)}
-	<li>
-		<input type="radio" bind:group={selected} 
-			id="num{index+1}" name="rating" value="{index+1}"
-			on:change={() => dispatch('rating-select', selected)}
-			checked={selected===index+1}
-		/>
-		<label for="num{index+1}">{index+1}</label>
-	</li>
-  {/each}
+	  {#each Array(10) as _, index (index)}
+		<li>
+			<input type="radio" bind:group={selected} 
+				id="ratingNum{index+1}" value="{index+1}"
+				on:change={() => dispatch('rating-select', selected)}
+				checked={selected===index+1}
+			/>
+			<label for="ratingNum{index+1}">{index+1}</label>
+		</li>
+	  {/each}
 
-</ul>
+	</ul>
 {:else}
 	<!-- <input id="select" type="range" min="1" max="10" class="slider" -->
 		<!-- bind:value={selected} -->
@@ -45,11 +45,13 @@
 	
 	<div class="slider-container">
 	<div bind:this={slider} class="ui-slider">
-		<input type="range" min="1" max="10" class="custom-slider"
+		<input id="ratingSlider" type="range" min="1" max="10" class="custom-slider"
 			bind:value={selected}
 			on:change={() => dispatch('rating-select', selected)}
 		/>
-		<div class="ui-slider-handle" tabindex="0" style="left: {sliderWidth}%;">{selected}</div>
+		<div class="ui-slider-handle" style="left: {sliderWidth}%;">
+			<label for="ratingSlider">{selected}</label>
+		</div>
 	</div>
 	</div>
 {/if}
@@ -62,6 +64,7 @@
 	align-items: center;
 	justify-content: center;
   }
+
   .ui-slider {
 	width: 100%;
 	height: 18px;
@@ -75,13 +78,15 @@
 	background: var(--primary);
 	border: 2px solid;
 	text-align: center;
-	line-height: 40px;
-	font-weight: 600;
-	font-size: 18px;
 	color: white;
 	/*opacity: 0.6;*/
 	z-index: 2;
 	/*margin-left: -5%;*/
+  }
+  .ui-slider-handle label {
+  	line-height: 40px;
+	font-weight: 600;
+	font-size: 18px;
   }
 
   .custom-slider {

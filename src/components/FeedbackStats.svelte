@@ -8,8 +8,8 @@
 
 <div class="feedback-stats-container">
 	<div class="feedback-stats">
-	  <h4>{count} Reviews</h4>
-	  <h4 style="text-align:right">Ratings Average: {average}</h4>
+	  <p>{count} Reviews</p>
+	  <p style="text-align:right">Ratings Average: {average}</p>
 	</div>
 	<hr>
 </div>
@@ -20,9 +20,15 @@
     justify-content: space-between;
     align-items: center;
   }
+  .feedback-stats p {
+	font-weight: 600;
+  }
   .feedback-stats-container {
 	margin-top: 30px;
 	margin-bottom: 30px;
+  }
+  .feedback-stats-container hr {
+	background: white;
   }
   @media only screen and (max-width: 600px) {
 	.feedback-stats-container {
