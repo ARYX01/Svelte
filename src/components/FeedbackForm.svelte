@@ -72,8 +72,6 @@
 
 <svelte:window bind:innerWidth/>
 
-<p>{innerWidth}</p>
-
 <Card>
   <header>
     <h2>How would you rate your service with us?</h2>
@@ -116,6 +114,7 @@
 
   textarea {
 	width: 100%;
+	margin-right: 10px;
     /*hide scrollBar - overflow-y: hidden;*/
 	resize: none;
     border: none;
