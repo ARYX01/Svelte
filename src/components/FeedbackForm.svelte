@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from 'svelte'
   import {v4 as uuidv4} from 'uuid'
   import {feedbackStore} from '../stores'
   import Card from './Card.svelte'
@@ -10,36 +10,43 @@
   let rating = 10
   let btnDisabled = true
   let min = 10
-  let message
+  let validationMsg="loading"
 
   let innerWidth = window.innerWidth
   let input
 
   $: if(innerWidth && input || text) {
-	setTextareaHeight('init input OR on window resize')
+	if(validationMsg==="loading")
+		console.log(validationMsg,document.fonts.check('1em Poppins'))
+	// Preventing reactive call before and after onMount
+	if(validationMsg!="loading")
+		setTextareaHeight('init input OR on window resize')
+	else if(document.fonts.check('1em Poppins'))
+		validationMsg = validationMsg&&validationMsg!="loading" ? validationMsg : null
   }
 
   function setTextareaHeight(by="other") {
-	//console.log("setTextareaHeight by->"+by, {scrollHeight:input.scrollHeight+"px"})
+	//console.log("setTextareaHeight by -> "+by, {scrollHeight:input.scrollHeight+"px"})
 	input.style.height = "auto"
 	input.style.height = input.scrollHeight+"px"
   }
 
   onMount(() => {
-	input = document.getElementById('input')
-	setTimeout(setTextareaHeight,200)
+	//input = document.getElementById('input') //replaced by bind:this
+	document.fonts.ready.then(() => setTextareaHeight('onMount'))
   })
 
   const handleSelect = e => rating = e.detail
 
-  const handleInput = e => {
-	const inputText = e.target.value;
+  const handleInput = () => {
+	//console.log("text:", text)
+	const inputText = text; //or e.target.value
 
     if(inputText.replaceAll("\n","").trim().length < min) {
-      message = `Text must be at least ${min} characters`
+      validationMsg = `Text must be at least ${min} characters`
       btnDisabled = true
     } else {
-      message = null
+      validationMsg = null
       btnDisabled = false
     }
   }
@@ -65,19 +72,21 @@
 
 <svelte:window bind:innerWidth/>
 
+<p>{innerWidth}</p>
+
 <Card>
   <header>
     <h2>How would you rate your service with us?</h2>
   </header>
   <form on:submit|preventDefault={handleSubmit}>
-    <RatingSelect on:rating-select={handleSelect} />
+    <RatingSelect on:rating-select={handleSelect} screenWidth={innerWidth} />
     <div class="input-group">
-	  <textarea id="input" rows=1 on:input={handleInput} bind:value={text} placeholder="Tell us something that keeps you coming back" />
-	  <Button disabled={btnDisabled} type="submit" style="secondary">Send</Button>
+	  <textarea bind:this={input} rows=1 bind:value={text} on:input={handleInput} placeholder="Tell us something that keeps you coming back" />
+	  <Button disabled={btnDisabled} type="submit">Send</Button>
     </div>
-    {#if message}
+    {#if validationMsg}
 	  <div class="message">
-	    {message}
+	    {validationMsg}
 	  </div>
     {/if}
   </form>

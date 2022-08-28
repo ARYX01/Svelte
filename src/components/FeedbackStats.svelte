@@ -6,16 +6,27 @@
 		: Math.round($feedbackStore.reduce((a, {rating}) => a + rating, 0) / $feedbackStore.length * 100) /100
 </script>
 
-<div class="feedback-stats">
-  <h4>{count} Reviews</h4>
-  <h4 style="text-align:right">Ratings Average: {average}</h4>
+<div class="feedback-stats-container">
+	<div class="feedback-stats">
+	  <h4>{count} Reviews</h4>
+	  <h4 style="text-align:right">Ratings Average: {average}</h4>
+	</div>
+	<hr>
 </div>
-<hr>
 
 <style>
   .feedback-stats {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .feedback-stats-container {
+	margin-top: 30px;
+	margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+	.feedback-stats-container {
+		margin-top: 50px;
+	}
   }
 </style>

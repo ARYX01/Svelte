@@ -49,5 +49,8 @@
   
   .text-display {
 	/*font-family: 'Poppins', sans-serif;*/
+	white-space: break-spaces;
+	overflow: hidden;
+	text-overflow: ellipsis;
   }
 </style>

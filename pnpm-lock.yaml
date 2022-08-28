@@ -1483,8 +1483,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001382
-      electron-to-chromium: 1.4.229
+      caniuse-lite: 1.0.30001383
+      electron-to-chromium: 1.4.230
       node-releases: 2.0.6
       update-browserslist-db: 1.0.5_browserslist@4.21.3
     dev: true
@@ -1505,8 +1505,8 @@ packages:
       get-intrinsic: 1.1.2
     dev: true
 
-  /caniuse-lite/1.0.30001382:
-    resolution: {integrity: sha512-2rtJwDmSZ716Pxm1wCtbPvHtbDWAreTPxXbkc5RkKglow3Ig/4GNGazDI9/BVnXbG/wnv6r3B5FEbkfg9OcTGg==}
+  /caniuse-lite/1.0.30001383:
+    resolution: {integrity: sha512-swMpEoTp5vDoGBZsYZX7L7nXHe6dsHxi9o6/LKf/f0LukVtnrxly5GVb/fWdCDTqi/yw6Km6tiJ0pmBacm0gbg==}
     dev: true
 
   /chalk/2.4.2:
@@ -1628,8 +1628,8 @@ packages:
       jake: 10.8.5
     dev: true
 
-  /electron-to-chromium/1.4.229:
-    resolution: {integrity: sha512-kdye32s/padLGpiLzhrMraBBs/M5hDspB8PCdCP6L11AJ6dw3Gg3xdvT4b4pqWaW5tc5oAwCfKCS+PAsZM3ipw==}
+  /electron-to-chromium/1.4.230:
+    resolution: {integrity: sha512-3pwjAK0qHSDN9+YAF4fJknsSruP7mpjdWzUSruIJD/JCH77pEh0SorEyb3xVaKkfwk2tzjOt2D8scJ0KAdfXLA==}
     dev: true
 
   /es-abstract/1.20.1:
@@ -3010,7 +3010,7 @@ packages:
     dev: true
 
   file:vite-plugin-pwa-0.12.3.tgz_f7se6o6eqkwcix4u3svh6mkvda:
-    resolution: {integrity: sha512-0FUolLF36Njphi1OXfcqVyN4lfJH/2ZpMqwViQpRNB4gPdbl2N20f12qUfu+qpsDIK501uT3/4SSrL8ywjiAOA==, tarball: file:vite-plugin-pwa-0.12.3.tgz}
+    resolution: {integrity: sha512-RCZedZ8NXJEjRsaZqgmszXx3ekElCOq6J31JF2kIay7x59Gwr4yzeXZ6OwjzieFK876tFHoPM7EvYFbkh0IccQ==, tarball: file:vite-plugin-pwa-0.12.3.tgz}
     id: file:vite-plugin-pwa-0.12.3.tgz
     name: vite-plugin-pwa
     version: 0.12.3

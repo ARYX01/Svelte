@@ -41,6 +41,9 @@
       <span>
         App ready to work offline
       </span>
+      <button on:click={close}>
+        Close
+      </button>
       {:else}
       <span>
         New content available, click on reload button to update.
@@ -52,9 +55,6 @@
         Reload
       </button>
     {/if}
-    <!-- button on:click={close}>
-      Close
-    </button -->
   </div>
 {/if}
 
@@ -86,6 +86,7 @@
     background: var(--secondary);
     border: 0;
     border-radius: 8px;
+    box-shadow: 0px 0px 5px 1px;
     width: 100%;
     height: 40px;
     cursor: pointer;

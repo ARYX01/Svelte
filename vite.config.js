@@ -28,7 +28,7 @@ if (process.env.SW_DEV === 'true') {
 	// pwaOptions.strategies = 'injectManifest'
 	pwaOptions.devOptions.enabled = true
 	/* enable to tmp fix for registerSW.js 404 */
-	pwaOptions.injectRegister = 'inline'
+	// pwaOptions.injectRegister = 'inline'
 }
 
 console.log(pwaOptions)

@@ -1,28 +1,146 @@
 <script>
   import {createEventDispatcher} from 'svelte'
 
+  export let screenWidth
   let selected = 10
+  
+  let slider;
+  let sliderWidth;
+  
+  $: if(slider && screenWidth) {
+	sliderWidth = selected==10
+		? 100 * (slider.offsetWidth-42) / slider.offsetWidth
+		: selected!=1 ? (selected-1)*11 * ( slider.offsetWidth-42 ) / slider.offsetWidth : 0
+	//console.log(sliderWidth)
+  }
 
   const dispatch = createEventDispatcher()
 
-  const onChange = (e) => {
+  /*const onChange = (e) => {
     selected = e.currentTarget.value
     dispatch('rating-select', selected)
-  }
+  }*/
 </script>
 
+{#if screenWidth>450}
 <ul class="rating">
 
   {#each Array(10) as _, index (index)}
 	<li>
-		<input type="radio" id="num{index+1}" name="rating" value="{index+1}" on:change={onChange} checked={selected===index+1} />
+		<input type="radio" bind:group={selected} 
+			id="num{index+1}" name="rating" value="{index+1}"
+			on:change={() => dispatch('rating-select', selected)}
+			checked={selected===index+1}
+		/>
 		<label for="num{index+1}">{index+1}</label>
 	</li>
   {/each}
 
 </ul>
+{:else}
+	<!-- <input id="select" type="range" min="1" max="10" class="slider" -->
+		<!-- bind:value={selected} -->
+		<!-- on:change={() => dispatch('rating-select', selected)} -->
+	<!-- /><output for="select">{selected}</output> -->
+	
+	<div class="slider-container">
+	<div bind:this={slider} class="ui-slider">
+		<input type="range" min="1" max="10" class="custom-slider"
+			bind:value={selected}
+			on:change={() => dispatch('rating-select', selected)}
+		/>
+		<div class="ui-slider-handle" tabindex="0" style="left: {sliderWidth}%;">{selected}</div>
+	</div>
+	</div>
+{/if}
 
 <style>
+  .slider-container {
+	width: 100%;
+	height: 90px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  .ui-slider {
+	width: 100%;
+	height: 18px;
+  }
+  .ui-slider-handle {
+	width: 42px;
+	height: 42px;
+	position: relative;
+	top: -36px;
+	border-radius: 25px;
+	background: var(--primary);
+	border: 2px solid;
+	text-align: center;
+	line-height: 40px;
+	font-weight: 600;
+	font-size: 18px;
+	color: white;
+	/*opacity: 0.6;*/
+	z-index: 2;
+	/*margin-left: -5%;*/
+  }
+
+  .custom-slider {
+	height: 15px;
+	width: 100%;
+	appearance: none;
+	background: #ccc;
+	border-radius: 9px;
+	/*margin-left: -5%;*/
+  }
+  .custom-slider::-webkit-slider-thumb {
+	appearance: none;
+	-webkit-appearance: none; /* Override default look */
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	background: transparent;
+	position: relative;
+	z-index: 3;
+	cursor: pointer; /* Cursor on hover */
+  }
+  .custom-slider::-moz-range-thumb {
+	width: 40px;
+	height: 40px;
+	background: var(--primary);
+	cursor: pointer; /* Cursor on hover */
+  }
+  .custom-slider:focus-visible {
+	outline-width: 0;
+  }
+
+  /* .slider {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 10px;
+	background: #ccc;
+	opacity: 1;
+	transition: opacity .2s;
+  }
+  .slider:hover {
+	opacity: 0.7;
+  }
+  .slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: var(--primary);
+	cursor: pointer;
+  }
+  .slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	background: var(--primary);
+	cursor: pointer;
+  } */
+
   .rating {
     display: flex;
     align-items: center;

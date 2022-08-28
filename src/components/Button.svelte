@@ -15,6 +15,7 @@
     color: white;
     border: 0;
     border-radius: 8px;
+	box-shadow: 0px 0px 5px 1px;
     width: 120px;
     height: 40px;
     cursor: pointer;
@@ -34,8 +35,9 @@
   }
 
   button:disabled{
-    background-color: #cccccc;
+    background-color: #ddd;
     color: #333;
+	box-shadow: 0px 0px 0px;
     cursor:auto;
   }
 
