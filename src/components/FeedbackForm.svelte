@@ -137,6 +137,7 @@
 		flex-direction: column;
 	}
 	textarea {
+		margin-right: 0;
 		margin-bottom: 10px;
 	}
   }
